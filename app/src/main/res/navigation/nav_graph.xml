@@ -18,5 +18,6 @@
         android:id="@+id/movieDetailFragment"
         android:name="kz.kcell.kcellbootcamp.presentation.moviesDetail.MovieDetailFragment"
         android:label="movie_detail_fragment"
-        tools:layout="@layout/fragment_movie_detail" />
+        tools:layout="@layout/fragment_movie_detail" >
+    </fragment>
 </navigation>

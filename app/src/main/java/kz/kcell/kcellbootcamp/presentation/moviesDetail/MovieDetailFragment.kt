@@ -2,6 +2,7 @@ package kz.kcell.kcellbootcamp.presentation.moviesDetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -20,7 +21,6 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
 
     private val binding by viewBinding(FragmentMovieDetailBinding::bind)
     private val viewModel by viewModels<MovieDetailViewModel>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt(ARG_MOVIE_ID)?.let { viewModel.id.postValue(it) }
@@ -33,6 +33,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
                 Resource.Status.SUCCESS -> {
                     bindMovie(it.data)
                     binding.progressBar.visibility = View.GONE
+                    (activity as AppCompatActivity).supportActionBar?.title = it.data?.title
                 }
 
                 Resource.Status.ERROR ->

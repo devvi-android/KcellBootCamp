@@ -1,5 +1,6 @@
 package kz.kcell.kcellbootcamp.presentation.moviesList
 
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,20 +11,23 @@ import kz.kcell.kcellbootcamp.data.entities.Movie
 import kz.kcell.kcellbootcamp.databinding.MovieItemBinding
 import kz.kcell.kcellbootcamp.utils.loadImage
 import kz.kcell.kcellbootcamp.utils.orZero
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Locale
+import kotlin.coroutines.coroutineContext
 
 class MoviesAdapter(
     private val onClick: (item: Movie) -> Unit
 ) : ListAdapter<Movie, MoviesAdapter.MovieViewHolder>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ) = MovieViewHolder(
-        onClick,
-        MovieItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+        onClick, MovieItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
         )
     )
 
@@ -32,8 +36,7 @@ class MoviesAdapter(
     }
 
     inner class MovieViewHolder(
-        private val onClick: (item: Movie) -> Unit,
-        private val binding: MovieItemBinding
+        private val onClick: (item: Movie) -> Unit, private val binding: MovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Movie) = with(binding) {
@@ -44,8 +47,7 @@ class MoviesAdapter(
             movieItemRelease.text = item.releaseDate
             movieItemRatingbar.rating = item.voteAverage.toFloat().orZero()
             movieItemPoster.loadImage(
-                BuildConfig.IMAGE_URL + item.posterPath,
-                progressBar
+                BuildConfig.IMAGE_URL + item.posterPath, progressBar
             )
         }
     }
